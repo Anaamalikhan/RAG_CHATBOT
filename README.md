@@ -25,8 +25,8 @@ This project implements a simple Retrieval-Augmented Generation (RAG) chatbot de
 
 1.  **Clone the Repository:**
     ```bash
-    git clone <your-repository-url>
-    cd <your-repository-name>
+    git clone <https://github.com/Anaamalikhan/RAG_CHATBOT/edit/main/README.md>
+    cd <RAG_Xhatbot_Project>
     ```
 
 2.  **Install Dependencies:**
@@ -119,3 +119,5 @@ Type your questions related to Full Stack Academy's courses, trainers, placement
 - Add support for more diverse data sources (e.g., PDFs, databases).
 - Improve response generation with more advanced LLM techniques.
 - Enhance error handling and user feedback.
+
+
