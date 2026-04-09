@@ -1,93 +1,121 @@
-Project Title
-A concise one-line description of your project.
+# RAG Chatbot for Full Stack Academy (Gradio + OpenRouter + FAISS)
 
-Table of Contents
-Project Title
-Table of Contents
-About the Project
-Built With
-Getting Started
-Prerequisites
-Installation
-Usage
-Contributing
-License
-Contact
-Acknowledgments
-About the Project
-This section should provide a more detailed overview of what your project does, its main features, and why it was created. Explain the problem it solves or the value it provides.
+This project implements a simple Retrieval-Augmented Generation (RAG) chatbot designed to answer questions about Full Stack Academy, leveraging both website content and a CSV file as data sources. The chatbot is built using LangChain, utilizes FAISS for vector storage, and is served via a Gradio interface. It integrates with OpenRouter for language model access.
 
-Built With
-Python
-LangChain
-FAISS
-Gradio
-BeautifulSoup4
-OpenRouter API
-Getting Started
-To get a local copy up and running, follow these simple steps.
+## Features
 
-Prerequisites
-This project requires Python 3.8+ and pip.
+- **Web Scraping:** Automatically extracts information from the Full Stack Academy website (`https://fullstackacademy.in/`).
+- **CSV Data Ingestion:** Incorporates structured data from a `course.txt` file (simulating course details).
+- **Vector Database:** Uses FAISS to create an efficient vector store for document retrieval.
+- **OpenRouter Integration:** Connects to language models via the OpenRouter API for generating responses.
+- **Gradio User Interface:** Provides an interactive web-based chat interface for easy interaction.
 
-pip
+## Technologies Used
 
-python -m pip install --upgrade pip
-Installation
-Clone the repo
+- Python
+- LangChain
+- Gradio
+- Requests & BeautifulSoup4 (for web scraping)
+- FAISS (for vector similarity search)
+- OpenAI Embeddings (via OpenRouter)
+- ChatOpenAI (via OpenRouter for LLM)
+- Pandas (for data handling)
 
-git clone https://github.com/your_username/your_project_name.git
-cd your_project_name
-Install Python packages
+## Setup and Installation
 
-pip install -r requirements.txt
-(Note: You would need to create a requirements.txt file from the installed packages like langchain, faiss-cpu, pandas, requests, beautifulsoup4, openai, gradio, tiktoken, langchain-text-splitters, langchain-google-genai, langchain-community, langchain-huggingface, langchain-openai, langchain-classic)
+1.  **Clone the Repository:**
+    ```bash
+    git clone <your-repository-url>
+    cd <your-repository-name>
+    ```
 
-Set up API Key
+2.  **Install Dependencies:**
+    It's recommended to use a virtual environment.
+    ```bash
+    pip install -r requirements.txt
+    ```
+    (Create a `requirements.txt` from your notebook's `!pip install` commands)
+    A sample `requirements.txt` might look like this:
+    ```
+    langchain-openai
+    langchain
+    faiss-cpu
+    pandas
+    requests
+    beautifulsoup4
+    openai
+    gradio
+    tiktoken
+    langchain-text-splitters
+    langchain-google-genai
+    langchain-community
+    langchain-huggingface
+    langchain-classic
+    ```
 
-Obtain an API key from OpenRouter.
-Set your API key as an environment variable or directly in the code (as shown in the notebook):
-import os
-OPENROUTER_API_KEY = "YOUR_OPENROUTER_API_KEY"
-os.environ["OPENAI_API_KEY"] = OPENROUTER_API_KEY
-os.environ["OPENAI_API_BASE"] = "https://openrouter.ai/api/v1"
-Usage
-Describe how to use your project. Provide examples of how to interact with the chatbot or run the Gradio interface.
+3.  **Obtain API Keys:**
+    -   **OpenRouter API Key:** Sign up at [OpenRouter](https://openrouter.ai/) and generate an API key. This key will be used to access various language models.
 
-# Example of running the Gradio interface
-# (Assuming the setup steps from the notebook have been executed)
+4.  **Configure API Keys:**
+    Create a `.env` file in the project root or set environment variables directly:
+    ```
+    OPENROUTER_API_KEY="sk-or-v1-..."
+    GOOGLE_API_KEY="AIzaSyB..." # If using Gemini, which is optionally included in the notebook
+    ```
+    Alternatively, set them in your Python script/notebook as shown in the Colab notebook:
+    ```python
+    import os
+    OPENROUTER_API_KEY = "sk-or-v1-YOUR_OPENROUTER_KEY"
+    os.environ["OPENAI_API_KEY"] = OPENROUTER_API_KEY
+    os.environ["OPENAI_API_BASE"] = "https://openrouter.ai/api/v1"
+    
+    # For Google Gemini (if used)
+    # os.environ["GOOGLE_API_KEY"] = "YOUR_GOOGLE_API_KEY"
+    ```
 
-import gradio as gr
+5.  **Prepare Data:**
+    Ensure you have a `course.txt` file in your project directory (or adjust the path in the notebook) with your course data. For example:
+    ```
+    course\tduration\ttiming\ttrainer_name
+    Data Science\t4 months\t7pm-9pm\tVarun Maya
+    AI Specialist\t3 months\t8pm-10pm\tRahul Verma
+    ...
+    ```
 
-# ... (define chatbot_interface, qa_chain, vectorstore, llm from the notebook)
+## How to Run
 
-iface = gr.Interface(
-    fn=chatbot_interface,
-    inputs=gr.Textbox(lines=2, placeholder="Ask a question about the courses or academy..."),
-    outputs="text",
-    title="Full Stack Academy Chatbot",
-    description="Ask any question related to the courses, trainers, or the academy."
-)
+1.  **Execute the Colab Notebook:** Open the `.ipynb` file in Google Colab and run all cells sequentially. The notebook performs the following steps:
+    -   Installs necessary libraries.
+    -   Sets up API keys.
+    -   Scrapes data from the Full Stack Academy website.
+    -   Loads data from `course.txt`.
+    -   Combines and chunks the text data.
+    -   Creates a FAISS vector store with embeddings.
+    -   Initializes the RAG `qa_chain`.
+    -   Launches the Gradio interface.
 
-iface.launch(share=True)
-Contributing
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
+2.  **Access the Chatbot:** Once the Gradio interface launches (after running the last cell), it will provide a local URL and potentially a public share link. Open this URL in your web browser to interact with the chatbot.
 
-Fork the Project
-Create your Feature Branch (git checkout -b feature/AmazingFeature)
-Commit your Changes (git commit -m 'Add some AmazingFeature')
-Push to the Branch (git push origin feature/AmazingFeature)
-Open a Pull Request
-License
-Distributed under the MIT License. See LICENSE for more information.
+## Usage
 
-Contact
-Your Name - your_email@example.com
+Type your questions related to Full Stack Academy's courses, trainers, placements, or general information into the chat interface and press Enter. The chatbot will retrieve relevant information from its knowledge base and generate a response.
 
-Project Link: https://github.com/your_username/your_project_name
+**Example Questions:**
 
-Acknowledgments
-LangChain Documentation
-Gradio Documentation
-OpenRouter API
-BeautifulSoup Documentation
+- "What courses does Full Stack Academy offer?"
+- "Who is the trainer for Data Science?"
+- "What is the duration of the AI Specialist course?"
+- "How many students have been placed?"
+
+## Project Structure
+
+- `your_notebook_name.ipynb`: The main Colab notebook containing all the code.
+- `course.txt`: The CSV file containing structured course data.
+- `README.md`: This file.
+
+## Future Enhancements
+
+- Implement chat history persistence.
+- Add support for more diverse data sources (e.g., PDFs, databases).
+- Improve response generation with more advanced LLM techniques.
+- Enhance error handling and user feedback.
